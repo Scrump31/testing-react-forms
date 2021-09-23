@@ -9,7 +9,7 @@
     "type-check": "tsc",
     "format": "prettier \"**/*.+(js|tsx|json|css|)\" --write --check",
     "test": "jest",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watchAll",
     "test:api": "env TEST_LEVEL=api jest  --detectOpenHandles --testPathPattern='./pages/api/.*.test.ts'",
     "test:api:watch": "env TEST_LEVEL=api jest --watch --testPathPattern='./pages/api/.*.test.ts'",
     "test:coverage": "jest --coverage",
