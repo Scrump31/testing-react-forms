@@ -1,8 +1,8 @@
-import React from 'react'
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import postFeedback from '../utils/postFeedback'
+import React from 'react'
 import { mocked } from 'ts-jest/utils'
+import postFeedback from '../utils/postFeedback'
 import Form from './Form'
 
 jest.mock('../utils/postFeedback', () => {
@@ -51,7 +51,7 @@ describe('<Form />', () => {
     expect(mocked(postFeedback).mock.calls.length).toBe(1)
   })
 
-  test('whenUserEntersSpecialCharaters_thenValuesNotAccepted', () => {
+  test('whenUserEntersSpecialCharacters_thenValuesNotAccepted', () => {
     const { getByPlaceholderText } = render(<Form />)
     const nameInput = getByPlaceholderText('Age')
     userEvent.type(nameInput, '!@#$%^&*()_+')

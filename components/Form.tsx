@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
 import Router from 'next/router'
-import RadioButton from './RadioButton'
-import CommentBox from './CommentBox'
-import postFeedback from '../utils/postFeedback'
+import React, { useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Event, PreventDefault } from '../interfaces/index'
+import postFeedback from '../utils/postFeedback'
+import CommentBox from './CommentBox'
+import RadioButton from './RadioButton'
 
 const Form = () => {
-  const initialfeedbackVals = {
+  const buttonsContent = [
+    { value: 'very good', id: 'veryGood', labelText: 'Very Good' },
+    { value: 'good', id: 'good', labelText: 'Good' },
+    { value: 'bad', id: 'bad', labelText: 'Bad' },
+    { value: 'very bad', id: 'veryBad', labelText: 'Very Bad' }
+  ]
+  const initialFeedback = {
     name: '',
     age: '',
     email: '',
@@ -16,15 +22,15 @@ const Form = () => {
     comment: ''
   }
 
-  const initalInputValErrors = {
+  const initialInputErrors = {
     name: false,
     age: false,
     email: false,
     rating: false,
     comment: false
   }
-  const [feedback, setFeedback] = useState(initialfeedbackVals)
-  const [inputValErrors, setInputValErrors] = useState(initalInputValErrors)
+  const [feedback, setFeedback] = useState(initialFeedback)
+  const [inputValErrors, setInputValErrors] = useState(initialInputErrors)
   const [errorResponse, setErrorResponse] = useState('')
 
   const { name, age, email, comment } = feedback
@@ -64,7 +70,7 @@ const Form = () => {
   return (
     <main className="w-full max-w-screen-lg m-auto sm:text-2xl">
       <h1 className="text-center m-4 font-mono font-bold">
-        Website Raiting Form
+        Website Rating Form
       </h1>
       <form
         onSubmit={handleSubmit}
@@ -160,41 +166,18 @@ const Form = () => {
           <h2 className="text-center m-4 font-bold font-mono">
             Rate Your Experience With Our Site!
           </h2>
-          <RadioButton
-            value="excellent"
-            id="excellent"
-            labelText="Excellent"
-            rating={feedback.rating}
-            handleChange={handleChange}
-          />
-          <RadioButton
-            value="very good"
-            id="veryGood"
-            labelText="Very Good"
-            rating={feedback.rating}
-            handleChange={handleChange}
-          />
-          <RadioButton
-            value="good"
-            id="good"
-            labelText="Good"
-            rating={feedback.rating}
-            handleChange={handleChange}
-          />
-          <RadioButton
-            value="bad"
-            id="bad"
-            labelText="Bad"
-            rating={feedback.rating}
-            handleChange={handleChange}
-          />
-          <RadioButton
-            value="very bad"
-            id="veryBad"
-            labelText="Very Bad"
-            rating={feedback.rating}
-            handleChange={handleChange}
-          />
+          {buttonsContent.map(content => {
+            return (
+              <RadioButton
+                key={content.id}
+                value={content.value}
+                id={content.id}
+                labelText={content.labelText}
+                rating={feedback.rating}
+                handleChange={handleChange}
+              />
+            )
+          })}
 
           <CommentBox
             isCommentBlank={inputValErrors.comment}
